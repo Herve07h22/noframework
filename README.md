@@ -18,7 +18,7 @@ Building a back-office web application is unique:
 - Interactions with office tools (e.g., Excel import/export) or older lecacy apps  
 - Reliability, integrity, security are critical — but great UX is also a must.  
 
-In 5 years, I've deployed enterprise apps using various stacks:  
+I've deployed enterprise apps using various stacks:  
 Django, NestJS, Express, Rails, Next, Remix, GraphQL, react-router, tRPC.  
 
 **But the conclusion is clear:**  
@@ -62,7 +62,7 @@ it("A registered user can log in", async () => {
 });
 ```
 
-To make is pass, we just need 3 classes and a factory to instantiate them.
+To make it passed, we just need 3 classes and a factory to instantiate them.
 
 ```ts
 export function makeStore(api: API) {

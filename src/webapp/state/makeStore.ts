@@ -9,3 +9,5 @@ export function makeStore(api: API) {
   const auth = new Authentication(api, { router, notification });
   return { auth, router, notification };
 }
+
+export type Store = ReturnType<typeof makeStore>;

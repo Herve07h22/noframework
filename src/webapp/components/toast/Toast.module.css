@@ -1,0 +1,87 @@
+.container {
+    top: 16px;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    pointer-events: none;
+    padding: 24px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .toastShow {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .toastHide {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+  
+  .notificationPanel {
+    pointer-events: auto;
+    width: 100%;
+    max-width: 384px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+  }
+  
+  .iconWrapper {
+    flex-shrink: 0;
+  }
+  
+  .successIcon {
+    height: 24px;
+    width: 24px;
+    color: #10b981;
+  }
+  
+  .errorIcon {
+    height: 24px;
+    width: 24px;
+    color: #ef4444;
+  }
+  
+  .textWrapper {
+    margin-left: 12px;
+    flex-grow: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+  }
+    
+  .buttonWrapper {
+    margin-left: 16px;
+    flex-shrink: 0;
+  }
+  
+  .closeButton {
+    background-color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .closeButton:hover .closeIcon {
+    color: #4b5563;
+  }
+  
+  .closeIcon {
+    height: 20px;
+    width: 20px;
+    color: #9ca3af;
+  }
+  
