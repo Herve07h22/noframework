@@ -1909,6 +1909,7 @@ __metadata:
     react: ^19.0.0
     react-dom: ^19.0.0
     typescript: ^5.7.2
+    valtio: ^2.1.2
     vite: ^6.0.7
     vitest: ^2.1.8
   languageName: unknown
@@ -2029,6 +2030,13 @@ __metadata:
     err-code: ^2.0.2
     retry: ^0.12.0
   checksum: f96a3f6d90b92b568a26f71e966cbbc0f63ab85ea6ff6c81284dc869b41510e6cdef99b6b65f9030f0db422bf7c96652a3fff9f2e8fb4a0f069d8f4430359429
+  languageName: node
+  linkType: hard
+
+"proxy-compare@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "proxy-compare@npm:3.0.1"
+  checksum: 25e4e552610f01e6d2cd67aef98f437cb54cb869df7f940799a8e83c6216db7de1c15747776ca810b120eae4f0dc3f653d4269a003548817c560ea9dfcae22d2
   languageName: node
   linkType: hard
 
@@ -2484,6 +2492,23 @@ __metadata:
   bin:
     update-browserslist-db: cli.js
   checksum: 2ea11bd2562122162c3e438d83a1f9125238c0844b6d16d366e3276d0c0acac6036822dc7df65fc5a89c699cdf9f174acf439c39bedf3f9a2f3983976e4b4c3e
+  languageName: node
+  linkType: hard
+
+"valtio@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "valtio@npm:2.1.2"
+  dependencies:
+    proxy-compare: ^3.0.0
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    react: ">=18.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 3ee6ddd9b0aa1d465d57e6d7fd0d458772e82cf71040d90f49851730e4ffee7c5a30997e4f74a1b7ca29a018b443809de700ff824c68bcb168d8d528fcd6348a
   languageName: node
   linkType: hard
 

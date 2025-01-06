@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { Store } from './makeStore';
+import { useSnapshot } from 'valtio';
 
 export const StoreContext = createContext<Store | null>(null);
 
@@ -8,6 +9,7 @@ export const useStore = () => {
   if (!store) {
     throw new Error('useStore must be used within a StoreProvider');
   }
-  return store;
+  const snap = useSnapshot(store)
+  return snap;
 };
 
