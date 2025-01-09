@@ -6,8 +6,6 @@ import { useStore } from "../../state/StoreContext";
 export function Toast() {
   const { notification } = useStore();
 
-  console.log("re-render : ", notification.toast);
-
   if (!notification.toast) return null;
 
   const { type, message } = notification.toast;

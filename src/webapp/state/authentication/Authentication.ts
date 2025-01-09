@@ -1,21 +1,39 @@
 import { API } from "../../../server/API";
-import { Router } from "../router/Router";
-import { Notification } from "../notification/Notification";
+import { store } from "../makeStore";
 
 export class Authentication {
   constructor(
     private api: API,
-    private dependencies: () => { router: Router; notification: Notification }
   ) {}
 
+  // States
+  user: {
+    name: string;
+    email: string;
+  } | null = null;
+
+  isLoading = false;
+
   async login(params: { email: string; password: string }) {
+    const { router, notification } = store;
+
+    this.isLoading = true;
     const result = await this.api.auth.login(params); // This will fire a RPC to the server
-    const { router, notification } = this.dependencies();
     if (result.status === "ok") {
+      this.user = result.value;
       router.navigate("/dashboard");
       notification.success("Welcome " + result.value.name + " !");
     } else {
       notification.error(result.error);
     }
+    this.isLoading = false;
+  }
+
+  check() {
+    if (!this.user) {
+      store.router.navigate("login");
+      return false;
+    }
+    return true;
   }
 }

@@ -4,20 +4,21 @@ import { Notification } from "./notification/Notification";
 import { Authentication } from "./authentication/Authentication";
 import { proxy } from "valtio";
 
-var store: Store;
+export var store: Store;
 
-export function makeStore(api: API) {
+export function makeStore(api: API): Store {
   if (store) return store;
-  store = proxy({
-    router: new Router(),
-    notification: new Notification(),
-    auth: new Authentication(api, () => makeStore(api)),
-  });
+  store = proxy(new Store(api));
   return store;
 }
 
-export type Store = {
+export class Store {
   router: Router;
   notification: Notification;
   auth: Authentication;
+  constructor(api: API) {
+    this.router = new Router();
+    this.notification = new Notification();
+    this.auth = new Authentication(api);
+  }
 };

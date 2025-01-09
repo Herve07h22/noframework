@@ -1,14 +1,15 @@
+import { store } from "../state/makeStore";
 import { useStore } from "../state/StoreContext";
 import styles from "./Login.module.css";
 
 export function LoginPage() {
-  const { auth, notification } = useStore();
+  const { notification } = useStore(); // useStore return an immutable object
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    await auth.login({
+    await store.auth.login({ // And not auth.login(), because we want to use the proxy
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     });
