@@ -10,6 +10,7 @@ export const useStore = () => {
     throw new Error('useStore must be used within a StoreProvider');
   }
   const snap = useSnapshot(store)
+  // We should return something like toJs(snap) to remove mutations, since a snap is immutable.
   return snap;
 };
 

@@ -3,18 +3,19 @@ import { RouteGuard } from "../components/contexts/RouteGuard";
 import { Toast } from "../components/toast/Toast";
 import { useStore } from "../state/StoreContext";
 import { LoginPage } from "./LoginPage";
+import { store } from "../state/makeStore";
 
 export const Root = () => {
   const { router } = useStore();
 
   // Keep router in sync with the browser
   useEffect(() => {
-    const handlePopState = () => router.navigate(window.location.pathname);
+    const handlePopState = () => store.router.navigate(window.location.pathname);
     window.addEventListener("popstate", handlePopState);
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [router.navigate]);
+  }, [store]);
 
   useEffect(() => {
     window.history.pushState(null, "", router.currentPage)
