@@ -77,3 +77,61 @@ The `api` inject the way to communicate with the server.
 - When we are testing, the API makes direct calls to the server functions.
 - When we are running the app, the API provides a type-safe RPC to the server.
 
+## Observe the state
+
+Our store is a collection of JS objects.
+How can we track their state changes to update a React component?
+
+Why is it such a tricky question?
+
+👀 Because we want to observe them WITHOUT them knowing.
+(Spying might be a more accurate term than observing!)
+
+⚡️ And because we also want to optimize.
+We want to limit updates to only those React components affected by the state changes.
+
+What’s the simplest way to achieve this?
+
+I’ve gone through all the phases:
+- Using custom hooks instead of objects
+- Using elegant objects (= a new instance on mutation) in a useState
+- `useSyncExternalStore()`
+- Redux, MobX, Zustand (in production), and a few other state managers (just to try them out)
+- Various observable libraries
+
+I dug into the code of renowned libraries like TanStack Query.
+The same pattern emerges:
+A hook instantiates an "observer" that monitors a part of the store and notifies React of changes using the `useSyncExternalStore` API.
+
+Valtio seems to be the easiest way to "proxify" the store.
+
+Valtio = Proxy + WeakMap + useSyncExternalStore.
+
+The coupling to the library is minimal, affecting only two places in my code.
+
+Observation :
+```
+export var store: Store;
+
+export function makeStore(api: API): Store {
+  if (store) return store;
+  store = proxy(new Store(api)); // <-- Valtio
+  return store;
+}
+```
+
+Re-rendering :
+```
+export const useStore = () => {
+  const store = useContext(StoreContext);
+  if (!store) {
+    throw new Error('useStore must be used within a StoreProvider');
+  }
+  const snap = useSnapshot(store) // <-- Valtio
+  return snap;
+};
+```
+
+
+Simple, optimized, non-intrusive, and no impact on tests: that’s my choice.
+
