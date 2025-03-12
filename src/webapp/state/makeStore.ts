@@ -1,4 +1,4 @@
-import { type API } from "../../server/API";
+import { type API } from "../../api/API";
 import { Router } from "./router/Router";
 import { Notification } from "./notification/Notification";
 import { Authentication } from "./authentication/Authentication";

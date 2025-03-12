@@ -1,4 +1,4 @@
-import { API } from "../../../server/API";
+import { API } from "../../../api/API";
 import { store } from "../makeStore";
 
 export class Authentication {
@@ -18,7 +18,7 @@ export class Authentication {
     const { router, notification } = store;
 
     this.isLoading = true;
-    const result = await this.api.auth.login(params); // This will fire a RPC to the server
+    const result = await this.api("auth/login", params); // This will fire a RPC to the server
     if (result.status === "ok") {
       this.user = result.value;
       router.navigate("/dashboard");

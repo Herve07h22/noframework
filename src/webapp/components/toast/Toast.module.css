@@ -1,7 +1,6 @@
 .container {
     top: 16px;
     position: fixed;
-    inset: 0;
     display: flex;
     pointer-events: none;
     padding: 24px;

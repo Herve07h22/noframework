@@ -1,4 +1,4 @@
-import { testApi } from "../../../server/testApi";
+import { testApi } from "../../../api/testApi";
 import { makeStore } from "../makeStore";
 
 it("A registered user can log in", async () => {

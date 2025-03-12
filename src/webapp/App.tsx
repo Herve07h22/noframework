@@ -1,11 +1,11 @@
 import { createRoot } from "react-dom/client";
-import { testApi } from "../server/testApi";
 import { Root } from "./pages/Root";
 import { makeStore } from "./state/makeStore";
 import { StoreContext } from "./state/StoreContext";
 import { StrictMode } from "react";
+import { productionApi } from "../api/productionApi";
 
-const store = makeStore(testApi);
+const store = makeStore(productionApi);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
