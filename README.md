@@ -90,9 +90,9 @@ Why is it such a tricky question?
 ⚡️ And because we also want to optimize.
 We want to limit updates to only those React components affected by the state changes.
 
-What’s the simplest way to achieve this?
+What's the simplest way to achieve this?
 
-I’ve gone through all the phases:
+I've gone through all the phases:
 - Using custom hooks instead of objects
 - Using elegant objects (= a new instance on mutation) in a useState
 - `useSyncExternalStore()`
@@ -133,5 +133,78 @@ export const useStore = () => {
 ```
 
 
-Simple, optimized, non-intrusive, and no impact on tests: that’s my choice.
+Simple, optimized, non-intrusive, and no impact on tests: that's my choice.
+
+## Connect the API
+
+The API layer is designed to provide end-to-end type safety between the frontend and backend, with zero boilerplate. Here's how it works:
+
+The `/api` directory is organized by domains:
+
+```
+/api
+  /endpoints
+    /auth
+      - login.ts
+      - index.ts
+    - index.ts
+```
+
+Each domain (like `auth`) contains its endpoints and an `index.ts` that exports them. The root `endpoints/index.ts` combines all domains into a single API tree.
+
+The magic happens in `API.ts`. It uses TypeScript's powerful type system to ensure complete type safety:
+
+```ts
+type APITree = typeof api;  // The entire API structure
+
+type Endpoint<K extends keyof APITree = keyof APITree> = K extends string
+  ? `${K}/${keyof APITree[K] & string}`
+  : never;
+
+export type API = <T extends Endpoint = Endpoint>(
+  endpoint: T, 
+  payload: ApiPayload<T>
+) => ApiResult<T>;
+```
+
+This creates a type-safe API where:
+- The endpoint must be a valid path (e.g., "auth/login")
+- The payload must match the endpoint's expected parameters
+- The return type is automatically inferred from the endpoint
+
+This is very usefull to write the objects of the store :
+
+```ts
+async login(params: { email: string; password: string }) {
+    const { router, notification } = store;
+
+    this.isLoading = true;
+    const result = await this.api("auth/login", params); // Type checking here !
+    if (result.status === "ok") {
+      this.user = result.value;
+      router.navigate("/dashboard");
+      notification.success("Welcome " + result.value.name + " !");
+    } else {
+      notification.error(result.error);
+    }
+    this.isLoading = false;
+  }
+```
+
+Note that `this.api` is injected to the store.
+
+In test environnement, it calls directly the endpoints. Otherwise, it fires an HTTP call through the network.
+
+Both implementations share the same type constraints, making it impossible to:
+- Call non-existent endpoints
+- Pass invalid parameters
+- Expect incorrect return types
+
+This approach gives us the best of both worlds:
+- Complete type safety across the frontend/backend boundary
+- No code generation or complex tooling
+- Easy to test with direct function calls
+- Production-ready HTTP implementation
+
+
 

@@ -4,6 +4,7 @@ import { makeStore } from "./state/makeStore";
 import { StoreContext } from "./state/StoreContext";
 import { StrictMode } from "react";
 import { productionApi } from "../api/productionApi";
+import "./styles/global.css";
 
 const store = makeStore(productionApi);
 

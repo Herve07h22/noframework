@@ -1,51 +1,56 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import styles from "./Toast.module.css";
 import { useStore } from "../../state/StoreContext";
+import { store } from "../../state/makeStore";
 
 export function Toast() {
   const { notification } = useStore();
-
-  if (!notification.toast) return null;
 
   const { type, message } = notification.toast;
 
   return (
     <div
       aria-live="assertive"
-      className={`${styles.container} ${notification.show ? styles.toastShow : styles.toastHide}`}
+      className={`container-fluid ${notification.show ? "fade-in" : "fade-out"}`}
+      style={{
+        position: "fixed",
+        bottom: "1rem",
+        right: "1rem",
+        zIndex: 9999,
+        maxWidth: "24rem"
+      }}
     >
-      <div className={styles.notificationPanel}>
-        <div className={styles.contentWrapper}>
-          <div className={styles.iconWrapper}>
-            {type === "success" ? (
-              <CheckCircleIcon
-                aria-hidden="true"
-                className={styles.successIcon}
-              />
-            ) : (
-              <XMarkIcon
-                aria-hidden="true"
-                className={styles.errorIcon}
-              />
-            )}
-          </div>
-
-          <div className={styles.textWrapper}>
-           {message}
-          </div>
-
-          <div className={styles.buttonWrapper}>
-            <button
-              type="button"
-              className={styles.closeButton}
-              aria-label="Close"
-            >
-              <XMarkIcon aria-hidden="true" className={styles.closeIcon} />
-            </button>
-          </div>
-        </div>
-      </div>
+      <article className={`${type === "success" ? "secondary" : "contrast"}`}>
+        <strong>
+          {type === "success" ? (
+            <CheckCircleIcon
+              aria-hidden="true"
+              className="secondary"
+              width={24}
+              height={24}
+            />
+          ) : (
+            <XMarkIcon
+              aria-hidden="true"
+              className="contrast"
+              width={24}
+              height={24}
+            />
+          )}
+          &nbsp;
+          {message}
+        </strong>
+        <footer style={{textAlign:"end"}}>
+          <button
+            type="button"
+            className="outline"
+            aria-label="Close"
+            onClick={() => store.notification.hide()}
+          >
+            Got it
+          </button>
+        </footer>
+      </article>
     </div>
   );
 }

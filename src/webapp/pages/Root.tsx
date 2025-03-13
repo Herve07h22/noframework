@@ -4,6 +4,7 @@ import { Toast } from "../components/toast/Toast";
 import { useStore } from "../state/StoreContext";
 import { LoginPage } from "./LoginPage";
 import { store } from "../state/makeStore";
+import { Dashboard } from "./Dashboard";
 
 export const Root = () => {
   const { router } = useStore();
@@ -22,13 +23,13 @@ export const Root = () => {
   }, [router.currentPage]);
 
   return (
-    <>
+    <main className="container">
       {/* Public routes */}
       {router.match("/login", () => <LoginPage /> )}
 
       {/* Private routes */}
       <RouteGuard>
-        {router.match("/dashboard", () => <p>This is the dashboard page</p> )}
+        {router.match("/dashboard", () => <Dashboard /> )}
         {router.match("/dashboard/:id", (params) => <p>Params is type-safe : {params.id}</p>)}
       </RouteGuard>
 
@@ -36,6 +37,6 @@ export const Root = () => {
 
       {/* Common components  : move them to a Layout component ? */}
       <Toast />
-    </>
+    </main>
   );
 };

@@ -1,0 +1,4 @@
+/* Import Pico CSS */
+@import "@picocss/pico";
+@import "./animations.css";
+

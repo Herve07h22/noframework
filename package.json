@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@picocss/pico": "^2.0.6",
     "cookie": "^1.0.2",
     "lodash.get": "^4.4.2",
     "react": "^19.0.0",

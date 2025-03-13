@@ -644,6 +644,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@picocss/pico@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "@picocss/pico@npm:2.0.6"
+  checksum: 71b15552ee7e6e9df2076ccb0f90aa54f5b7853aa1c104ce109775e62b1507d95c3ca8c52d4790b4d2110b13d6869b2f09605f6e416b61a3df95e732fefc64cd
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -1942,6 +1949,7 @@ __metadata:
   resolution: "no-framework@workspace:."
   dependencies:
     "@heroicons/react": ^2.2.0
+    "@picocss/pico": ^2.0.6
     "@types/lodash.get": ^4.4.9
     "@types/node": ^22.13.10
     "@types/react": ^19.0.2
